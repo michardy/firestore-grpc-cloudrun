@@ -14,7 +14,7 @@ pub use firestore_grpc::v1::*;
 use futures::{future::TryFutureExt, try_join};
 
 pub async fn get_client() -> Result<FirestoreClient<Channel>, BoxError> {
-    let endpoint = Channel::from_static(URL).tls_config(ClientTlsConfig::new().domain_name(DOMAIN));
+    let endpoint = Channel::from_static(URL).tls_config(ClientTlsConfig::new().domain_name(DOMAIN))?;
 
     let (channel, token) = try_join!(
         endpoint.connect().map_err(|e| BoxError::from(e)),
